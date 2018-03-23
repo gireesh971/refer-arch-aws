@@ -1,0 +1,49 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "532a4e63-07fe-447c-84c1-ec8892094652": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 69,
+                    "y": 48
+                },
+                "z": 0
+            },
+            "f386a1c5-1709-4d59-85cb-2e907683ce7c": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 69,
+                    "y": 139
+                },
+                "z": 0
+            }
+        }
+    },
+    "Resources": {
+        "sample-spring-boot-service": {
+            "Type": "AWS::ECR::Repository",
+            "Properties": {},
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "f386a1c5-1709-4d59-85cb-2e907683ce7c"
+                }
+            }
+        },
+        "sample-go-service": {
+            "Type": "AWS::ECR::Repository",
+            "Properties": {},
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "532a4e63-07fe-447c-84c1-ec8892094652"
+                }
+            }
+        }
+    }
+}
