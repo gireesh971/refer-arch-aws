@@ -8,10 +8,11 @@
                     "height": 60
                 },
                 "position": {
-                    "x": 69,
-                    "y": 48
+                    "x": 70,
+                    "y": 50
                 },
-                "z": 0
+                "z": 0,
+                "embeds": []
             },
             "f386a1c5-1709-4d59-85cb-2e907683ce7c": {
                 "size": {
@@ -22,23 +23,28 @@
                     "x": 69,
                     "y": 139
                 },
-                "z": 0
+                "z": 0,
+                "embeds": []
             }
         }
     },
     "Resources": {
-        "sample-spring-boot-service": {
+        "springbootservice": {
             "Type": "AWS::ECR::Repository",
-            "Properties": {},
+            "Properties": {
+                "RepositoryName" : "sample-spring-boot-service"
+            },
             "Metadata": {
                 "AWS::CloudFormation::Designer": {
                     "id": "f386a1c5-1709-4d59-85cb-2e907683ce7c"
                 }
             }
         },
-        "sample-go-service": {
+        "goservice": {
             "Type": "AWS::ECR::Repository",
-            "Properties": {},
+            "Properties": {
+                "RepositoryName" : "sample-go-service"
+            },
             "Metadata": {
                 "AWS::CloudFormation::Designer": {
                     "id": "532a4e63-07fe-447c-84c1-ec8892094652"
