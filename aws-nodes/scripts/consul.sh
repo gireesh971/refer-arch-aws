@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Consul server setup
-cd /home/ubuntu/
 sudo apt-get -y install unzip
 wget https://releases.hashicorp.com/consul/0.8.5/consul_0.8.5_linux_amd64.zip
 unzip consul_0.8.5_linux_amd64.zip
