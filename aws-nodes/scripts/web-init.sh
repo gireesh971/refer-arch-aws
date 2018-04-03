@@ -16,6 +16,6 @@ cd /home/ubuntu/refer-arch-aws/aws-nodes/scripts/
 sudo apt-get update
 
 # Web server specific
-sudo apt-get install nginx
+sudo apt-get -y install nginx
 echo "Completed the init script execution"
 date
