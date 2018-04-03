@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Redirect stdout ( > ) into a named pipe ( >() ) running "tee"
-exec > >(tee -i /home/ubuntu/init-trail.log)
+exec > >(tee -ia /home/ubuntu/init-trail.log)
 exec 2>&1
 
 echo "Starting the init script execution"
