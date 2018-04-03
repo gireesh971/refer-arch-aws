@@ -30,6 +30,7 @@ echo "Consul template setup"
 ./consul.sh server
 chmod +x consul-template.sh
 ./consul-template.sh
+consul kv put foo "`date`"
 
 echo "Completed the init script execution"
 date
