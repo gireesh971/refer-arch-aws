@@ -21,6 +21,7 @@ sudo apt-get -y install nginx
 # Consul setup
 cd /home/ubuntu/refer-arch-aws/aws-nodes/scripts
 chmod +x consul.sh
+./consul.sh
 
 echo "Completed the init script execution"
 date
