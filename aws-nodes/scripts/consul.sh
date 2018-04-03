@@ -12,3 +12,4 @@ sudo systemctl daemon-reload
 sudo systemctl start consul.service
 sudo systemctl enable consul.service
 
+
