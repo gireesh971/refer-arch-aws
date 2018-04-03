@@ -15,9 +15,7 @@ cd /home/ubuntu/refer-arch-aws/aws-nodes/scripts/
 
 sudo apt-get update
 
-# Bastion specific
-sudo apt-get install tinyproxy
-sudo cp tinyproxy.conf /etc/tinyproxy.conf
-sudo /etc/init.d/tinyproxy restart
+# Web server specific
+sudo apt-get install nginx
 echo "Completed the init script execution"
 date
