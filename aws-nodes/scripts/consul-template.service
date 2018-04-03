@@ -3,7 +3,7 @@ Description=Consul
 Documentation=https://www.consul.io/
 
 [Service]
-ExecStart=/usr/local/bin/consul-template -template "/home/ubuntu/refer-arch-aws/aws-nodes/scripts/nginx.conf.ctmpl:/var/nginx/nginx.conf:sudo nginx -s reload"
+ExecStart=sudo /usr/local/bin/consul-template -template "/home/ubuntu/refer-arch-aws/aws-nodes/scripts/nginx.conf.ctmpl:/etc/nginx/nginx.conf:sudo nginx -s reload" -config /home/ubuntu/refer-arch-aws/aws-nodes/scripts/consul-template.config
 ExecReload=/bin/kill -HUP $MAINPID
 LimitNOFILE=65536
 
