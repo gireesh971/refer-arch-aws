@@ -7,6 +7,7 @@ exec 2>&1
 echo "Starting the init script execution"
 date
 # Standard git pull
+echo "Standard git pull"
 cd /home/ubuntu
 git clone https://github.com/gireesh971/refer-arch-aws.git
 cd /home/ubuntu/refer-arch-aws/aws-nodes
@@ -16,12 +17,19 @@ cd /home/ubuntu/refer-arch-aws/aws-nodes/scripts/
 sudo apt-get update
 
 # Web server specific
+echo "Web server specific"
 sudo apt-get -y install nginx
 
 # Consul setup
+echo "Consul setup"
 cd /home/ubuntu/refer-arch-aws/aws-nodes/scripts
 chmod +x consul.sh
+
+# Consul template setup
+echo "Consul template setup"
 ./consul.sh server
+chmod +x consul-template.sh
+./consul-template.sh
 
 echo "Completed the init script execution"
 date
