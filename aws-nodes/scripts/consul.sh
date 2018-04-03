@@ -1,6 +1,6 @@
 #!/bin/bash
-
-# Consul server setup
+Consul server setup
+cd /home/ubuntu/
 sudo apt-get -y install unzip
 wget https://releases.hashicorp.com/consul/0.8.5/consul_0.8.5_linux_amd64.zip
 unzip consul_0.8.5_linux_amd64.zip
@@ -11,5 +11,3 @@ sudo cp /home/ubuntu/refer-arch-aws/aws-nodes/scripts/ui.json /etc/consul.d/ui.j
 sudo systemctl daemon-reload
 sudo systemctl start consul.service
 sudo systemctl enable consul.service
-
-
