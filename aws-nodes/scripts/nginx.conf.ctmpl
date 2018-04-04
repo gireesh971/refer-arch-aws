@@ -8,24 +8,38 @@ events {
 }
 
 http {
-	server {
-    		listen 80;
-    		server_name foobar.net www.foobar.net test.io www.test.io;
+	upstream app {
+		least_conn;
 
-    		location /ui {
-        		proxy_pass http://localhost:8500;
-        		proxy_set_header Host $host;
-        		proxy_set_header X-Real-IP $remote_addr;
-        		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        		proxy_set_header X-Forwarded-Proto $scheme;
-    		}
-    		location /v1 {
-        		proxy_pass http://localhost:8500;
-        		proxy_set_header Host $host;
-        		proxy_set_header X-Real-IP $remote_addr;
-        		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        		proxy_set_header X-Forwarded-Proto $scheme;
-    		}
+		{{range service "health"}}server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=60 weight=1;
+		{{else}}server 127.0.0.1:65535; # force a 502{{end}}
+	}
+
+	server {
+		listen 80;
+		server_name foobar.net www.foobar.net test.io www.test.io;
+
+		location /ui {
+			proxy_pass http://localhost:8500;
+			proxy_set_header Host $host;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Proto $scheme;
+		}
+		location /v1 {
+			proxy_pass http://localhost:8500;
+			proxy_set_header Host $host;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Proto $scheme;
+		}
+		location /health {
+			proxy_pass http://app;
+			proxy_set_header Host $host;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Proto $scheme;
+		}
 	}
 	##
 	# Basic Settings
