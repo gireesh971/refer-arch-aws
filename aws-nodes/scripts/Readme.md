@@ -25,6 +25,8 @@ Run registrator on host network
 docker run -d \
     --name=registrator \
     --net=host \
+    --restart always \
+    -ip 10.0.1.105
     --volume=/var/run/docker.sock:/tmp/docker.sock \
     gliderlabs/registrator:latest \
-      consul://localhost:8500
+    consul://localhost:8500
