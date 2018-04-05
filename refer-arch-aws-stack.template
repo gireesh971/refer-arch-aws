@@ -32,7 +32,7 @@
         "springbootservice": {
             "Type": "AWS::ECR::Repository",
             "Properties": {
-                "RepositoryName" : "sample-spring-boot-service"
+                "RepositoryName": "sample-spring-boot-service"
             },
             "Metadata": {
                 "AWS::CloudFormation::Designer": {
@@ -43,18 +43,18 @@
         "goservice": {
             "Type": "AWS::ECR::Repository",
             "Properties": {
-                "RepositoryName" : "sample-go-service"
+                "RepositoryName": "sample-go-service"
             },
             "Metadata": {
                 "AWS::CloudFormation::Designer": {
                     "id": "532a4e63-07fe-447c-84c1-ec8892094652"
                 }
             }
-        }
+        },
         "registrator": {
             "Type": "AWS::ECR::Repository",
             "Properties": {
-                "RepositoryName" : "registrator"
+                "RepositoryName": "registrator"
             }
         }
     }
