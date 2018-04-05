@@ -51,5 +51,11 @@
                 }
             }
         }
+        "registrator": {
+            "Type": "AWS::ECR::Repository",
+            "Properties": {
+                "RepositoryName" : "registrator"
+            }
+        }
     }
 }
