@@ -62,7 +62,7 @@ type Healthcheck struct {
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/book/{isbn}", BookHandler).Methods("GET")
-	http.HandleFunc("/health", HealthHandler)
+	http.HandleFunc("/app1", HealthHandler)
 	http.Handle("/", (httpauth.SimpleBasicAuth(GetHttpUsername(), GetHttpPassord()))(r))
 	log.Fatal(http.ListenAndServe(":80", nil))
 }
