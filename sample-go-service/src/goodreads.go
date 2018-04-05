@@ -16,6 +16,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/goji/httpauth"
 	"github.com/gorilla/mux"
 	"io/ioutil"
@@ -26,6 +27,15 @@ import (
 	"os/exec"
 	"strings"
 )
+
+type ConsulValue struct {
+	CreateIndex string `json:"CreateIndex"`
+	ModifyIndex string `json:"ModifyIndex"`
+	LockIndex   string `json:"LockIndex"`
+	Key         string `json:"Key"`
+	Flags       string `json:"Flags"`
+	Value       string `json:"Value"`
+}
 
 type Book struct {
 	Isbn          string  `json:"isbn"`
@@ -44,7 +54,9 @@ type NoBook struct {
 
 // Spec represents the Healthcheck response object.
 type Healthcheck struct {
-	Status string `json:"status"`
+	Status          string `json:"status"`
+	InstanceId      string `json:"InstanceId"`
+	ConfiguredValue string `json:"ConfiguredValue"`
 }
 
 func main() {
@@ -57,7 +69,11 @@ func main() {
 
 // Handler to process the healthcheck
 func HealthHandler(res http.ResponseWriter, req *http.Request) {
-	hc := Healthcheck{Status: "OK"}
+	hc := Healthcheck{
+		Status:          "OK",
+		ConfiguredValue: GetConsulValue(),
+		InstanceId:      GetInstanceId(),
+	}
 	if err := json.NewEncoder(res).Encode(hc); err != nil {
 		log.Panic(err)
 	}
@@ -181,12 +197,31 @@ func GetContainerId() string {
 // Get the Instance ID if exists
 func GetInstanceId() string {
 	cmd := "curl"
-	cmdArgs := []string{"-s", "http://169.254.169.254/latest/meta-data/instance-id"}
+	cmdArgs := []string{"-s", "http://169.254.169.254/latest/meta-data/local-ipv4"}
 	out, err := exec.Command(cmd, cmdArgs...).Output()
+	fmt.Println("Getting instance id from: " + cmdArgs[1])
+	log.Printf("Getting instance id from: " + cmdArgs[1])
 	if err != nil {
 		log.Printf("Instance Id err is %s\n", err)
 		return ""
 	}
 	log.Printf("The instance id is %s\n", out)
+	return string(out)
+}
+
+// Get the Consul Value if exists
+func GetConsulValue() string {
+	instanceId := GetInstanceId()
+	cmd := "curl"
+	cmdArgs := []string{"-s", "http://" + instanceId + ":8500/v1/kv/my-key"}
+	fmt.Println("Getting consul value from: " + cmdArgs[1])
+	log.Printf("Getting consul value from: " + cmdArgs[1])
+	out, err := exec.Command(cmd, cmdArgs...).Output()
+	if err != nil {
+		log.Printf("Consul not reachable - err is %s\n", err)
+		return "Consul not reachable"
+	}
+	log.Printf("Consul value %s\n", out)
+
 	return string(out)
 }
