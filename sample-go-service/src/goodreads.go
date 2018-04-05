@@ -15,6 +15,7 @@
 package main
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"github.com/goji/httpauth"
@@ -28,13 +29,22 @@ import (
 	"strings"
 )
 
-type ConsulValue struct {
-	CreateIndex string `json:"CreateIndex"`
-	ModifyIndex string `json:"ModifyIndex"`
-	LockIndex   string `json:"LockIndex"`
-	Key         string `json:"Key"`
-	Flags       string `json:"Flags"`
-	Value       string `json:"Value"`
+type ConsulResponse struct {
+	LockIndex   int
+	Key         string
+	Flags       int
+	Value       string
+	CreateIndex int
+	ModifyIndex int
+}
+type Consul struct {
+	baseUrl string
+}
+
+func NewConsul(baseUrl string) *Consul {
+	return &Consul{
+		baseUrl: baseUrl,
+	}
 }
 
 type Book struct {
@@ -211,17 +221,58 @@ func GetInstanceId() string {
 
 // Get the Consul Value if exists
 func GetConsulValue() string {
-	instanceId := GetInstanceId()
-	cmd := "curl"
-	cmdArgs := []string{"-s", "http://" + instanceId + ":8500/v1/kv/my-key"}
-	fmt.Println("Getting consul value from: " + cmdArgs[1])
-	log.Printf("Getting consul value from: " + cmdArgs[1])
-	out, err := exec.Command(cmd, cmdArgs...).Output()
-	if err != nil {
-		log.Printf("Consul not reachable - err is %s\n", err)
-		return "Consul not reachable"
-	}
-	log.Printf("Consul value %s\n", out)
+	consulUrl := "http://" + GetInstanceId() + ":8500/v1/kv/"
+	consulClient := NewConsul(consulUrl)
 
-	return string(out)
+	response, err := consulClient.getKey("mykey")
+	if err == nil {
+		fmt.Println("Read value is " + response.Value)
+	}
+	var decoded string
+	var error bool
+	decoded, error = base64Decode(response.Value)
+	if !error {
+		fmt.Println("Decoded value is " + decoded)
+	}
+	return decoded
+}
+
+func (s *Consul) getKey(key string) (*ConsulResponse, error) {
+	url := fmt.Sprintf(s.baseUrl + key)
+	fmt.Println(url)
+	req, err := http.NewRequest("GET", url, nil)
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	if 200 != resp.StatusCode {
+		return nil, fmt.Errorf("%s", body)
+	}
+	var data [1]ConsulResponse
+	fmt.Println("############## should be using this header value as index for watching ############")
+	fmt.Println("X-Consul-Index: " + resp.Header.Get("X-Consul-Index"))
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		return nil, err
+	} else {
+		return &data[0], nil
+	}
+}
+
+func base64Encode(str string) string {
+	return base64.StdEncoding.EncodeToString([]byte(str))
+}
+
+func base64Decode(str string) (string, bool) {
+	data, err := base64.StdEncoding.DecodeString(str)
+	if err != nil {
+		return "", true
+	}
+	return string(data), false
 }
