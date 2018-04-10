@@ -7,7 +7,7 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<docker.image.prefix>ge.imaging</docker.image.prefix>
+		<docker.image.prefix>com.ge.imaging</docker.image.prefix>
 	</properties>
 
 	<parent>
