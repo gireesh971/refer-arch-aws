@@ -22,6 +22,7 @@ public class UserController {
 						  BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.applicationUserRepository = applicationUserRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		createDefaultAdminUser();
 	}
 
 	@PostMapping
@@ -34,5 +35,12 @@ public class UserController {
 	@GetMapping
 	public List<ApplicationUser> getUsers() {
 		return applicationUserRepository.findAll();
+	}
+	
+	private void createDefaultAdminUser() {
+		ApplicationUser adminUser = new ApplicationUser();
+		adminUser.setName("admin");
+		adminUser.setPassword(bCryptPasswordEncoder.encode("password"));
+		applicationUserRepository.save(adminUser);
 	}
 }
