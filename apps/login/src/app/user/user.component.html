@@ -1,0 +1,22 @@
+<table>
+  <tr>
+    <th><h2>My Heroes</h2></th>
+    <th colspan="2">User Details</th>
+  </tr>
+  <tr>
+    <td>
+    	<ul class="heroes">
+		  <li *ngFor="let user of users"
+		  	[class.selected]="user === selectedUser"
+		   (click)="onSelect(user)">
+		    <span class="badge">{{user.id}}</span> {{user.name}}
+		  </li>
+		</ul>
+    </td>
+    <td valign="top">
+		<app-user-detail [user]="selectedUser"></app-user-detail>
+    </td>
+  </tr>
+</table>
+
+
