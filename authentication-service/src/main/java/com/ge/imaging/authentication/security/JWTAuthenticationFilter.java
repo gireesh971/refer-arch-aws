@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,6 +22,7 @@ import static com.ge.imaging.authentication.security.SecurityConstants.EXPIRATIO
 import static com.ge.imaging.authentication.security.SecurityConstants.HEADER_STRING;
 import static com.ge.imaging.authentication.security.SecurityConstants.SECRET;
 import static com.ge.imaging.authentication.security.SecurityConstants.TOKEN_PREFIX;
+import static com.ge.imaging.authentication.security.SecurityConstants.ACCESS_TOKEN_COOKIE;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,5 +65,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				.signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
 				.compact();
 		res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+		Cookie jwtCookie = new Cookie(ACCESS_TOKEN_COOKIE, token);
+		jwtCookie.setHttpOnly(true);
+		jwtCookie.setPath("/");
+		jwtCookie.setMaxAge(5*60); // 5 minutes
+		res.addCookie(jwtCookie);
 	}
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import {Router} from "@angular/router";
 
 import { MessageService } from './message.service';
 import { User } from './user';
@@ -17,9 +18,10 @@ export class LoginService {
 
 	constructor(
 		private http: HttpClient,
-		private messageService: MessageService) { }
+		private messageService: MessageService,
+		private router: Router) { }
 
-	onLogin(name: string, password: string) {
+	onLogin(name: string, password: string, callback: string) {
 
 		this.http.post(this.loginUrl,
 			{
@@ -36,7 +38,9 @@ export class LoginService {
 			let jwtToken = httpResponse.headers.get("authorization");
 			this.messageService.add("Successully logeed in with - token: " + jwtToken);
 			this.messageService.add("Please wait for redirect to : " + jwtToken);
-			//this.router.navigate(['/show_alunos'])
+			console.log("service got call bacl as: " + callback);
+			this.router.navigate(["success"]);
+			window.location.href = callback;
 		}, (err: HttpErrorResponse) => {
 			this.messageService.add("Login failed");
 		});
