@@ -16,6 +16,7 @@ cd /home/ubuntu/refer-arch-aws/aws-nodes/scripts/
 
 sudo apt-get update
 
+# Commented out following line because of the grub file error on AWS
 #sudo apt-get -yq upgrade
 
 # Web server specific
