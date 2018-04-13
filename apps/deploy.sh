@@ -2,6 +2,7 @@
 
 sudo apt-get update
 
+# this line gives issue with dialog prompt on aws
 sudo apt-get -yq upgrade
 
 echo "Installing and configure npm, node, angul cli"
