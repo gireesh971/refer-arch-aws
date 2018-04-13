@@ -1,3 +1,12 @@
-<p>
-  login works!
-</p>
+  <br/>
+  <label>name:
+      <input [(ngModel)]="name" placeholder="name">
+    </label>
+  <br/>
+    <label>password:
+      <input [(ngModel)]="password" placeholder="password">
+    </label>
+  <br/>    
+  <button class="clear"
+          (click)="loginService.onLogin(name, password)">Login</button>
+  <br/>
