@@ -16,7 +16,7 @@ cd /home/ubuntu/refer-arch-aws/aws-nodes/scripts/
 
 sudo apt-get update
 
-sudo apt-get -y upgrade
+#sudo apt-get -y upgrade
 
 # Web server specific
 echo "Web server specific"
