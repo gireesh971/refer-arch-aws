@@ -16,7 +16,7 @@ cd /home/ubuntu/refer-arch-aws/aws-nodes/scripts/
 
 sudo apt-get update
 
-#sudo apt-get -y upgrade
+#sudo apt-get -yq upgrade
 
 # Web server specific
 echo "Web server specific"
@@ -29,6 +29,7 @@ echo "Installing and configure npm, node, angul cli"
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 
 sudo apt-get -y install nodejs
+sudo chmod +w /usr/lib/node_modules
 sudo npm install -g @angular/cli
 
 # Compile and deploy apps
