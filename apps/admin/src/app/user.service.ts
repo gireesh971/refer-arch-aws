@@ -9,7 +9,7 @@ import { MessageService } from './message.service';
 
 @Injectable()
 export class UserService {
-	private usersUrl = 'api/authentication/users';
+	private usersUrl = '/api/authentication/users';
 
   constructor(
   	private http: HttpClient,
