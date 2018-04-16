@@ -15,6 +15,13 @@ http {
 		{{else}}server 127.0.0.1:65535; # force a 502{{end}}
 	}
 
+	upstream authentication {
+		least_conn;
+
+		{{range service "authentication"}}server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=60 weight=1;
+		{{else}}server 127.0.0.1:65535; # force a 502{{end}}
+	}
+
 	server {
 		listen 80;
 		server_name foobar.net www.foobar.net test.io www.test.io;
@@ -35,6 +42,13 @@ http {
 		}
 		location /app1 {
 			proxy_pass http://app1;
+			proxy_set_header Host $host;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Proto $scheme;
+		}
+		location /api/authentication {
+			proxy_pass http://authentication;
 			proxy_set_header Host $host;
 			proxy_set_header X-Real-IP $remote_addr;
 			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
