@@ -25,6 +25,13 @@ sudo apt-get -y install nginx
 
 sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
 
+sudo mkdir -p /var/www/html/apps/admin
+sudo mkdir -p /var/www/html/apps/login
+sudo chmod +666 /var/www/html
+sudo chmod +666 /var/www/html/apps
+sudo chmod +666 /var/www/html/apps/admin
+sudo chmod +666 /var/www/html/apps/login
+
 # Consul setup
 echo "Consul setup"
 cd /home/ubuntu/refer-arch-aws/aws-nodes/scripts
