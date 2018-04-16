@@ -29,10 +29,10 @@
         }
     },
     "Resources": {
-        "springbootservice": {
+        "com.ge.imaging/authentication-service": {
             "Type": "AWS::ECR::Repository",
             "Properties": {
-                "RepositoryName": "sample-spring-boot-service"
+                "RepositoryName": "com.ge.imaging/authentication-service"
             },
             "Metadata": {
                 "AWS::CloudFormation::Designer": {
@@ -40,7 +40,7 @@
                 }
             }
         },
-        "goservice": {
+        "sample-go-service": {
             "Type": "AWS::ECR::Repository",
             "Properties": {
                 "RepositoryName": "sample-go-service"
