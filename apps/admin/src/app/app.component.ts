@@ -6,5 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Admin Desktop';
+
+	private title = 'Admin Desktop';
+
+	constructor() {}
+
+	ngOnInit() {
+	}
+
+
+    ngOnDestroy() {
+    }
 }

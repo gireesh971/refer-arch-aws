@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserService } from './user.service';
+import { UserContextService } from './user-context.service';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { AppRoutingModule } from './/app-routing.module';
@@ -28,7 +29,8 @@ import { SettingsComponent } from './settings/settings.component';
   ],
   providers: [
   	UserService,
-  	MessageService
+  	MessageService,
+    UserContextService
   ],
   bootstrap: [AppComponent]
 })

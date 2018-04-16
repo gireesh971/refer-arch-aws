@@ -41,7 +41,7 @@ export class LoginService {
 			console.log("service got call bacl URL: " + callback);
 			this.router.navigate(["success"]);
 			console.log("redirecting to call bacl URL: " + callback);
-			window.location.href = callback;
+			window.location.href = callback + "?access_token="+jwtToken;
 		}, (err: HttpErrorResponse) => {
 			this.messageService.add("Login failed");
 		});

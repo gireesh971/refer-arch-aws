@@ -64,7 +64,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 				.signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
 				.compact();
-		res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+		// TOKEN_PREFIX adds Bearer
+		//res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+		res.addHeader(HEADER_STRING, token);
+		//Cookie to be removed
 		Cookie jwtCookie = new Cookie(ACCESS_TOKEN_COOKIE, token);
 		jwtCookie.setHttpOnly(true);
 		jwtCookie.setPath("/");

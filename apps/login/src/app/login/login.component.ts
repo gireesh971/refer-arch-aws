@@ -20,14 +20,14 @@ export class LoginComponent implements OnInit {
 		private loginService: LoginService,
 		private route: ActivatedRoute) { }
 
-	ngOnInit() {
+	  ngOnInit() {
          this.routeSubscription = this.route.queryParams.subscribe(
              (queryParam: any) => {
              	this.callBack = queryParam['callback'];
              	console.log("callback url is: " + this.callBack);
              }
          );
-	}
+	  }
 
     ngOnDestroy() {
         this.routeSubscription.unsubscribe();
