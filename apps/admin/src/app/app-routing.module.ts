@@ -7,7 +7,7 @@ import { SettingsComponent } from './settings/settings.component';
 const routes: Routes = [
   { path: 'users', component: UserComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: '', redirectTo: '/users', pathMatch: 'full' },
+//  { path: '', redirectTo: '/users', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -44,7 +44,7 @@ export class UserComponent implements OnInit {
 	             	}
 	             	if (this.accessToken == "") {
 	             		console.log("## UserComponent - redirecting - no access token: ");
-	             		window.location.href = "/apps/login/?callback=/apps/admin/users";
+	             		window.location.href = "/apps/login/?callback=/apps/admin";
 	             	} else {
 	             		console.log("## continueing processing with access token: " + this.accessToken);
 	             	}
@@ -53,4 +53,9 @@ export class UserComponent implements OnInit {
          );
 		this.getUsers();
 	}
+
+
+    ngOnDestroy() {
+    	this.routeSubscription.unsubscribe();
+    }
 }
