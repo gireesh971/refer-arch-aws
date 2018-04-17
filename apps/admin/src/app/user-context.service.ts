@@ -13,4 +13,8 @@ export class UserContextService {
   	setAccessToken(accessToken : string) {
   		this.accessToken = accessToken;
   	}
+
+    getAccessToken() : string {
+        return this.accessToken;
+    }
 }
