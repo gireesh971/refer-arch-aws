@@ -44,6 +44,9 @@ chmod +x consul-template.sh
 ./consul-template.sh
 sleep 30s
 consul kv put foo "`date`"
+sleep 10s
+consul kv put mykey "This is a configuration read from consul and this gets the sample Go Health service work"
+sleep 10s
 
 echo "Completed the init script execution"
 date
