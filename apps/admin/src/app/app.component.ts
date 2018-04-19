@@ -11,7 +11,7 @@ import { UserContextService } from './user-context.service';
 })
 export class AppComponent {
 
-	private title = 'Admin Desktop';
+	private title = 'Sample Application 1 - Admin Desktop';
 	private routeSubscription: Subscription;
 
 	constructor(

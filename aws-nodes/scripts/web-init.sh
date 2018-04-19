@@ -27,10 +27,12 @@ sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
 
 sudo mkdir -p /var/www/html/apps/admin
 sudo mkdir -p /var/www/html/apps/login
+sudo mkdir -p /var/www/html/apps/config
 sudo chmod +666 /var/www/html
 sudo chmod +666 /var/www/html/apps
 sudo chmod +666 /var/www/html/apps/admin
 sudo chmod +666 /var/www/html/apps/login
+sudo chmod +666 /var/www/html/apps/config
 
 # Consul setup
 echo "Consul setup"

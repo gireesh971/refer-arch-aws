@@ -64,7 +64,7 @@ type NoBook struct {
 
 // Spec represents the Healthcheck response object.
 type Healthcheck struct {
-	Status          string `json:"status"`
+	Status          string `json:"Status"`
 	InstanceId      string `json:"InstanceId"`
 	ConfiguredValue string `json:"ConfiguredValue"`
 }
